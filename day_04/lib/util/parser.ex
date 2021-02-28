@@ -13,7 +13,6 @@ defmodule Util.Reader do
 
   def read_document(documents) do
     Enum.map(documents, fn document ->
-      #IO.puts "- #{inspect document}"
       Enum.reduce(String.split(document, " "), %{}, fn x, acc -> [k, v] = String.split(x, ":"); Map.put(acc, String.to_atom(k), v) end)
     end)
 
