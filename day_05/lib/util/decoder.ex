@@ -1,11 +1,8 @@
 defmodule Util.Decoder do
 
-  def decode([h|t], max_id_row) do
-    decoded_row = decode(h)
-    decode(t, case decoded_row[:id] > max_id_row[:id] do true -> decoded_row; _ -> max_id_row end)
+  def decode_list(code_list) do
+    Enum.map(code_list, fn code -> decode(code) end)
   end
-
-  def decode([], max_id_row), do: max_id_row
 
   def decode(code) do
     row.._ = Enum.reduce(String.graphemes(String.slice(code, 0..-4)), 0..127, fn position, range -> get_range_by_position(range, position) end)
