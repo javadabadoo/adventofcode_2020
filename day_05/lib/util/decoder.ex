@@ -19,4 +19,10 @@ defmodule Util.Decoder do
         first + round((last - first + 1) / 2)..last
     end
   end
+
+  def find_empty_seat(ordered_rows) do
+    Enum.reduce_while(ordered_rows, List.first(ordered_rows)[:id], fn row, next_id ->
+      case row[:id] == next_id do true -> {:cont, row[:id] + 1}; _ -> {:halt, row[:id] - 1} end
+    end)
+  end
 end
